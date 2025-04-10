@@ -42,14 +42,24 @@ set -o noclobber \
 &&   echo '  - libyaml' \
 &&   echo '  concretizer:' \
 &&   echo '    unify: true' \
-&&   echo '  packages:' \
-&&   echo '    all:' \
-&&   echo '      compiler: [gcc]' \
-&&   echo '  # template file for any extra steps' \
 &&   echo '  config:' \
 &&   echo '    template_dirs:' \
 &&   echo '    - ./' \
 &&   echo '    install_tree: /opt/software' \
+&&   echo '  compilers:' \
+&&   echo '  - compiler:' \
+&&   echo '      spec: gcc' \
+&&   echo '      paths:' \
+&&   echo '        cc: /usr/bin/gcc' \
+&&   echo '        cxx: /usr/bin/g++' \
+&&   echo '        f77: /usr/bin/gfortran' \
+&&   echo '        fc: /usr/bin/gfortran' \
+&&   echo '      flags: {}' \
+&&   echo '      operating_system: rockylinux9' \
+&&   echo '      target: x86_64' \
+&&   echo '      modules: []' \
+&&   echo '      environment: {}' \
+&&   echo '      extra_rpaths: []' \
 &&   echo '  view: /opt/views/view') > /opt/spack-environment/spack.yaml
 
 # Install the software, remove unnecessary deps

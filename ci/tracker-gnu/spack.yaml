@@ -39,10 +39,6 @@ spack:
     - libyaml
   concretizer:
     unify: true
-  packages:
-    all:
-      compiler: [ gcc ]
-  # template file for any extra steps
   config:
     template_dirs:
       - ./
@@ -74,4 +70,17 @@ spack:
       gov.noaa.gfdl.version: "1.0.0"
       vendor: "Geophysical Fluid Dynamics Laboratory"
       gov.noaa.gfdl.release-date: "2025-02-06"
-
+  compilers:
+  - compiler:
+      spec: gcc
+      paths:
+        cc:  /usr/bin/gcc
+        cxx: /usr/bin/g++
+        f77: /usr/bin/gfortran
+        fc:  /usr/bin/gfortran
+      flags: { }
+      operating_system: rockylinux9
+      target: x86_64
+      modules: [ ]
+      environment: { }
+      extra_rpaths: [ ]
