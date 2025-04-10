@@ -26,7 +26,7 @@ RUN mkdir -p /opt/spack-environment && \
 set -o noclobber \
 &&  (echo spack: \
 &&   echo '  specs:' \
-&&   echo '  - gcc' \
+&&   echo '  - gcc@13.2.0' \
 &&   echo '  - mpich' \
 &&   echo '  - bacio' \
 &&   echo '  - cmake' \
@@ -41,10 +41,10 @@ set -o noclobber \
 &&   echo '  - zlib' \
 &&   echo '  - libyaml' \
 &&   echo '  concretizer:' \
-&&   echo '    unify: true' \
+&&   echo '    unify: when_possible' \
 &&   echo '  packages:' \
 &&   echo '    all:' \
-&&   echo '      compiler: [gcc]' \
+&&   echo '      compiler: [gcc@13.2.0]' \
 &&   echo '  # template file for any extra steps' \
 &&   echo '  config:' \
 &&   echo '    template_dirs:' \
@@ -84,7 +84,8 @@ RUN dnf update -y && dnf install -y epel-release && dnf update -y \
  && rm -rf /var/cache/dnf && dnf clean all
 
 # Fix libgcc link
-RUN ranlib -U /opt/software/linux-rocky9-zen2/gcc-11.5.0/gcc-14.2.0-arkxowr5r5kkfrtjxe6lcrt5wdybsyrg/lib/gcc/x86_64-pc-linux-gnu/14.2.0/libgcc.a
+#RUN ranlib -U /opt/software/linux-rocky9-zen2/gcc-11.5.0/gcc-14.2.0-arkxowr5r5kkfrtjxe6lcrt5wdybsyrg/lib/gcc/x86_64-pc-linux-gnu/14.2.0/libgcc.a
+RUN ranlib -U /opt/software/linux-rocky9-skylake/gcc-*/gcc-*/lib/gcc/x86_64-pc-linux-gnu/*/libgcc.a
 # Any env vars needed, most of these are also set by the entrypoint but it is not run for github actions
 ENV MPICH_FC=/opt/views/view/bin/gfortran
 ENV MPICH_CC=/opt/views/view/bin/gcc

@@ -23,7 +23,7 @@
 # 3. `spack -e ./ containerize > DockerfileName`
 spack:
   specs:
-    - gcc
+    - gcc@13.2.0
     - mpich
     - bacio
     - cmake
@@ -38,10 +38,10 @@ spack:
     - zlib
     - libyaml
   concretizer:
-    unify: true
+    unify: when_possible
   packages:
     all:
-      compiler: [ gcc ]
+      compiler: [ gcc@13.2.0 ]
   # template file for any extra steps
   config:
     template_dirs:
