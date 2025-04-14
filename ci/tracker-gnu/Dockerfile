@@ -26,34 +26,53 @@ RUN mkdir -p /opt/spack-environment && \
 set -o noclobber \
 &&  (echo spack: \
 &&   echo '  specs:' \
-&&   echo '  - gcc' \
-&&   echo '  - mpich' \
-&&   echo '  - bacio' \
-&&   echo '  - cmake' \
-&&   echo '  - g2' \
-&&   echo '  - g2tmpl' \
-&&   echo '  - hdf5 ^mpich' \
-&&   echo '  - jasper' \
-&&   echo '  - libpng' \
-&&   echo '  - netcdf-c ^hdf5' \
-&&   echo '  - netcdf-fortran ^hdf5' \
-&&   echo '  - w3emc' \
-&&   echo '  - zlib' \
-&&   echo '  - libyaml' \
+&&   echo '  - gcc@14.2.0' \
+&&   echo '  - mpich@4.1.2' \
+&&   echo '  - bacio@2.6.0' \
+&&   echo '  - cmake@3.31.6' \
+&&   echo '  - g2@3.5.1' \
+&&   echo '  - g2tmpl@1.13.0' \
+&&   echo '  - hdf5@1.14.6' \
+&&   echo '  - jasper@4.2.4' \
+&&   echo '  - libpng@1.6.47' \
+&&   echo '  - netcdf-c@4.9.2' \
+&&   echo '  - netcdf-fortran@4.6.1' \
+&&   echo '  - w3emc@2.12.0' \
+&&   echo '  - zlib-ng@2.2.4' \
+&&   echo '  - libyaml@0.2.5' \
 &&   echo '  concretizer:' \
 &&   echo '    unify: true' \
-&&   echo '  packages:' \
-&&   echo '    all:' \
-&&   echo '      compiler: [gcc]' \
-&&   echo '  # template file for any extra steps' \
+&&   echo '    reuse: true' \
+&&   echo '# template file for any extra steps' \
 &&   echo '  config:' \
 &&   echo '    template_dirs:' \
 &&   echo '    - ./' \
 &&   echo '    install_tree: /opt/software' \
+&&   echo '  compilers:' \
+&&   echo '  - compiler:' \
+&&   echo '      spec: gcc@14.2.0' \
+&&   echo '      paths:' \
+&&   echo '        cc: /usr/bin/gcc' \
+&&   echo '        cxx: /usr/bin/g++' \
+&&   echo '        f77: /usr/bin/gfortran' \
+&&   echo '        fc: /usr/bin/gfortran' \
+&&   echo '      flags: {}' \
+&&   echo '      operating_system: rockylinux9' \
+&&   echo '      target: x86_64' \
+&&   echo '      modules: []' \
+&&   echo '      environment: {}' \
+&&   echo '      extra_rpaths: []' \
 &&   echo '  view: /opt/views/view') > /opt/spack-environment/spack.yaml
 
 # Install the software, remove unnecessary deps
 RUN cd /opt/spack-environment && spack env activate . && spack install --fail-fast && spack gc -y
+
+# Strip all the binaries
+RUN find -L /opt/views/view/* -type f -exec readlink -f '{}' \; | \
+    xargs file -i | \
+    grep 'charset=binary' | \
+    grep 'x-executable\|x-archive\|x-sharedlib' | \
+    awk -F: '{print $1}' | xargs strip
 
 # Modifications to the environment that are necessary to run
 RUN cd /opt/spack-environment && \
@@ -80,11 +99,11 @@ RUN { \
 
 
 RUN dnf update -y && dnf install -y epel-release && dnf update -y \
- && dnf install -y m4 libtool pkg-config zip diffutils git libgomp cmake \
+ && dnf install -y m4 libtool pkg-config zip diffutils git libgomp cmake git \
  && rm -rf /var/cache/dnf && dnf clean all
 
 # Fix libgcc link
-RUN ranlib -U /opt/software/linux-rocky9-zen2/gcc-11.5.0/gcc-14.2.0-arkxowr5r5kkfrtjxe6lcrt5wdybsyrg/lib/gcc/x86_64-pc-linux-gnu/14.2.0/libgcc.a
+RUN ranlib -U /opt/software/linux-rocky*/gcc-*/gcc-*/lib/gcc/*/*/libgcc.a
 # Any env vars needed, most of these are also set by the entrypoint but it is not run for github actions
 ENV MPICH_FC=/opt/views/view/bin/gfortran
 ENV MPICH_CC=/opt/views/view/bin/gcc
