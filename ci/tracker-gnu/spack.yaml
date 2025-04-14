@@ -24,19 +24,19 @@
 spack:
   specs:
     - gcc@14.2.0
-    - mpich@4.1.2
-    - bacio@2.6.0
-    - cmake@3.31.6
-    - g2@3.5.1
-    - g2tmpl@1.13.0
-    - hdf5@1.14.6
-    - jasper@4.2.4
-    - libpng@1.6.47
-    - netcdf-c@4.9.2
-    - netcdf-fortran@4.6.1
-    - w3emc@2.12.0
-    - zlib-ng@2.2.4
-    - libyaml@0.2.5
+    - mpich
+    - bacio
+    - cmake
+    - g2
+    - g2tmpl
+    - hdf5
+    - jasper
+    - libpng
+    - netcdf-c
+    - netcdf-fortran
+    - w3emc
+    - zlib-ng
+    - libyaml
   concretizer:
     unify: true
     reuse: true
@@ -51,7 +51,7 @@ spack:
       os: "rockylinux:9"
       spack: develop
     # strip binaries for size
-    strip: true
+    strip: false
     template: Dockerfile.template
     # packages we don't need to build from src
     os_packages:
