@@ -96,7 +96,7 @@ RUN dnf update -y && dnf install -y epel-release && dnf update -y \
  && rm -rf /var/cache/dnf && dnf clean all
 
 # Fix libgcc link
-RUN ranlib -U /opt/software/linux-zen2/gcc-14.2.0-sqviqylrfchsas3n5dyienoqhcngalmj/lib/gcc/x86_64-pc-linux-gnu/14.2.0/libgcc.a
+RUN ranlib -U /opt/software/linux-*/gcc-*/lib/gcc/*/*/libgcc.a
 # Any env vars needed, most of these are also set by the entrypoint but it is not run for github actions
 ENV MPICH_FC=/opt/views/view/bin/gfortran
 ENV MPICH_CC=/opt/views/view/bin/gcc
