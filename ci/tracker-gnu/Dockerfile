@@ -26,30 +26,42 @@ RUN mkdir -p /opt/spack-environment && \
 set -o noclobber \
 &&  (echo spack: \
 &&   echo '  specs:' \
-&&   echo '  - gcc' \
+&&   echo '  - gcc@14.2.0' \
 &&   echo '  - mpich' \
 &&   echo '  - bacio' \
 &&   echo '  - cmake' \
 &&   echo '  - g2' \
 &&   echo '  - g2tmpl' \
-&&   echo '  - hdf5 ^mpich' \
+&&   echo '  - hdf5' \
 &&   echo '  - jasper' \
 &&   echo '  - libpng' \
-&&   echo '  - netcdf-c ^hdf5' \
-&&   echo '  - netcdf-fortran ^hdf5' \
+&&   echo '  - netcdf-c' \
+&&   echo '  - netcdf-fortran' \
 &&   echo '  - w3emc' \
-&&   echo '  - zlib' \
+&&   echo '  - zlib-ng' \
 &&   echo '  - libyaml' \
 &&   echo '  concretizer:' \
 &&   echo '    unify: true' \
-&&   echo '  packages:' \
-&&   echo '    all:' \
-&&   echo '      compiler: [gcc]' \
-&&   echo '  # template file for any extra steps' \
+&&   echo '    reuse: true' \
+&&   echo '# template file for any extra steps' \
 &&   echo '  config:' \
 &&   echo '    template_dirs:' \
 &&   echo '    - ./' \
 &&   echo '    install_tree: /opt/software' \
+&&   echo '  compilers:' \
+&&   echo '  - compiler:' \
+&&   echo '      spec: gcc@14.2.0' \
+&&   echo '      paths:' \
+&&   echo '        cc: /usr/bin/gcc' \
+&&   echo '        cxx: /usr/bin/g++' \
+&&   echo '        f77: /usr/bin/gfortran' \
+&&   echo '        fc: /usr/bin/gfortran' \
+&&   echo '      flags: {}' \
+&&   echo '      operating_system: rockylinux9' \
+&&   echo '      target: aarch644' \
+&&   echo '      modules: []' \
+&&   echo '      environment: {}' \
+&&   echo '      extra_rpaths: []' \
 &&   echo '  view: /opt/views/view') > /opt/spack-environment/spack.yaml
 
 # Install the software, remove unnecessary deps
@@ -80,11 +92,11 @@ RUN { \
 
 
 RUN dnf update -y && dnf install -y epel-release && dnf update -y \
- && dnf install -y m4 libtool pkg-config zip diffutils git libgomp cmake \
+ && dnf install -y m4 libtool pkg-config zip diffutils git libgomp cmake git \
  && rm -rf /var/cache/dnf && dnf clean all
 
 # Fix libgcc link
-RUN ranlib -U /opt/software/linux-rocky9-zen2/gcc-11.5.0/gcc-14.2.0-arkxowr5r5kkfrtjxe6lcrt5wdybsyrg/lib/gcc/x86_64-pc-linux-gnu/14.2.0/libgcc.a
+RUN ranlib -U /opt/software/linux-*/gcc-*/lib/gcc/*/*/libgcc.a
 # Any env vars needed, most of these are also set by the entrypoint but it is not run for github actions
 ENV MPICH_FC=/opt/views/view/bin/gfortran
 ENV MPICH_CC=/opt/views/view/bin/gcc

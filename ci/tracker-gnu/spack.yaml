@@ -23,26 +23,24 @@
 # 3. `spack -e ./ containerize > DockerfileName`
 spack:
   specs:
-    - gcc
+    - gcc@14.2.0
     - mpich
     - bacio
     - cmake
     - g2
     - g2tmpl
-    - hdf5 ^mpich
+    - hdf5
     - jasper
     - libpng
-    - netcdf-c ^hdf5
-    - netcdf-fortran ^hdf5
+    - netcdf-c
+    - netcdf-fortran
     - w3emc
-    - zlib
+    - zlib-ng
     - libyaml
   concretizer:
     unify: true
-  packages:
-    all:
-      compiler: [ gcc ]
-  # template file for any extra steps
+    reuse: true
+# template file for any extra steps
   config:
     template_dirs:
       - ./
@@ -66,6 +64,7 @@ spack:
       - git
       - libgomp
       - cmake
+      - git
     # labels for final image
     labels:
       maintainer: "Caitlyn Mcallister <Caitlyn.Mcallister@noaa.gov>"
@@ -74,4 +73,17 @@ spack:
       gov.noaa.gfdl.version: "1.0.0"
       vendor: "Geophysical Fluid Dynamics Laboratory"
       gov.noaa.gfdl.release-date: "2025-02-06"
-
+  compilers:
+  - compiler:
+      spec: gcc@14.2.0
+      paths:
+        cc: /usr/bin/gcc
+        cxx: /usr/bin/g++
+        f77: /usr/bin/gfortran
+        fc: /usr/bin/gfortran
+      flags: {}
+      operating_system: rockylinux9
+      target: aarch644
+      modules: []
+      environment: {}
+      extra_rpaths: []   
