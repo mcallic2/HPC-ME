@@ -40,6 +40,10 @@ set -o noclobber \
 &&   echo '  - w3emc' \
 &&   echo '  - zlib' \
 &&   echo '  - libyaml' \
+&&   echo '  - nco' \
+&&   echo '  - cdo' \
+&&   echo '  - grib-util' \
+&&   echo '  - wgrib2' \
 &&   echo '  concretizer:' \
 &&   echo '    unify: true' \
 &&   echo '  packages:' \
