@@ -37,8 +37,6 @@ spack:
     - w3emc
     - zlib
     - libyaml
-    - nco
-    - cdo
     - grib-util
     - wgrib2
   concretizer:
