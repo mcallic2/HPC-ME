@@ -42,6 +42,8 @@ set -o noclobber \
 &&   echo '  - libyaml' \
 &&   echo '  - grib-util' \
 &&   echo '  - wgrib2' \
+&&   echo '  - nco' \
+&&   echo '  - cdo' \
 &&   echo '  concretizer:' \
 &&   echo '    unify: true' \
 &&   echo '  packages:' \
