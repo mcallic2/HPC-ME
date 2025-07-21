@@ -41,10 +41,21 @@ spack:
     - wgrib2
   concretizer:
     unify: true
+#  packages:
+#    all:
+#      compiler: [ gcc ]
   packages:
-    all:
-      compiler: [ gcc ]
-  # template file for any extra steps
+    gcc:
+      externals:
+      - spec: gcc@11.5.0 languages='c,c++,fortran'
+        prefix: /usr/bin
+        extra_attributes:
+          compilers:
+            cc: /usr/bin/gcc
+            cxx: /usr/bin/g++
+            f77: /usr/bin/gfortran
+            fc: /usr/bin/gfortran
+ # template file for any extra steps
   config:
     template_dirs:
       - ./
