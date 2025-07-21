@@ -23,7 +23,7 @@
 # 3. `spack -e ./ containerize > DockerfileName`
 spack:
   specs:
-    - gcc
+    - gcc@14.2.0
     - mpich
     - bacio
     - cmake
@@ -37,6 +37,8 @@ spack:
     - w3emc
     - zlib
     - libyaml
+    - grib-util
+    - wgrib2
   concretizer:
     unify: true
   packages:
