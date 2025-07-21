@@ -44,9 +44,6 @@ set -o noclobber \
 &&   echo '  - wgrib2' \
 &&   echo '  concretizer:' \
 &&   echo '    unify: true' \
-&&   echo '#  packages:' \
-&&   echo '#    all:' \
-&&   echo '#      compiler: [ gcc ]' \
 &&   echo '  packages:' \
 &&   echo '    gcc:' \
 &&   echo '      externals:' \

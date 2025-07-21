@@ -41,9 +41,6 @@ spack:
     - wgrib2
   concretizer:
     unify: true
-#  packages:
-#    all:
-#      compiler: [ gcc ]
   packages:
     gcc:
       externals:
