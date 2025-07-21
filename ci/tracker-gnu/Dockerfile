@@ -26,7 +26,7 @@ RUN mkdir -p /opt/spack-environment && \
 set -o noclobber \
 &&  (echo spack: \
 &&   echo '  specs:' \
-&&   echo '  - gcc' \
+&&   echo '  - gcc@14.2.0' \
 &&   echo '  - mpich' \
 &&   echo '  - bacio' \
 &&   echo '  - cmake' \
@@ -40,12 +40,25 @@ set -o noclobber \
 &&   echo '  - w3emc' \
 &&   echo '  - zlib' \
 &&   echo '  - libyaml' \
+&&   echo '  - grib-util' \
+&&   echo '  - wgrib2' \
 &&   echo '  concretizer:' \
 &&   echo '    unify: true' \
+&&   echo '#  packages:' \
+&&   echo '#    all:' \
+&&   echo '#      compiler: [ gcc ]' \
 &&   echo '  packages:' \
-&&   echo '    all:' \
-&&   echo '      compiler: [gcc]' \
-&&   echo '  # template file for any extra steps' \
+&&   echo '    gcc:' \
+&&   echo '      externals:' \
+&&   echo '      - spec: gcc@11.5.0 languages='"'"'c,c++,fortran'"'"'' \
+&&   echo '        prefix: /usr/bin' \
+&&   echo '        extra_attributes:' \
+&&   echo '          compilers:' \
+&&   echo '            cc: /usr/bin/gcc' \
+&&   echo '            cxx: /usr/bin/g++' \
+&&   echo '            f77: /usr/bin/gfortran' \
+&&   echo '            fc: /usr/bin/gfortran' \
+&&   echo ' # template file for any extra steps' \
 &&   echo '  config:' \
 &&   echo '    template_dirs:' \
 &&   echo '    - ./' \
