@@ -39,6 +39,8 @@ spack:
     - libyaml
     - grib-util
     - wgrib2
+    - nco
+    - cdo
   concretizer:
     unify: true
   packages:
