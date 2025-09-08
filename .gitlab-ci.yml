@@ -45,22 +45,13 @@ stages:
 build-ppp:
   stage: build
   variables:
-    DOCKERFILE: ppp/Dockerfile-ppp
+    DOCKERFILE: Dockerfile-ppp
     APP: "base"
     OS: ppp
     COMPILER_TYPE: none
     COMPILER_VERSION: 1
   <<: *buildScript
 
-build-ubuntu-cefi:
-  stage: build
-  variables:
-    DOCKERFILE: apps/Dockerfile-cefi-ubuntu22.04-intel24
-    APP: "cefi"
-    OS: ubuntu22.04
-    COMPILER_TYPE: intel
-    COMPILER_VERSION: 24
-  <<: *buildScript
 
 build-ubuntu-rocm:
   stage: build
@@ -72,23 +63,24 @@ build-ubuntu-rocm:
     COMPILER_VERSION: 18.0.0
   <<: *buildScript
 
-build-ubuntu-intel:
+#for the spack containers, we use spack and the spack tag instead of
+#compiler and compiler version
+build-rocky8-gcc13.2-spack202402:
   stage: build
   variables:
-    DOCKERFILE: Dockerfile-base-ubuntu24.04-intel2025.1 
+    DOCKERFILE: Dockerfile-rocky8-spack202402
     APP: "base"
-    OS: ubuntu24.04
-    COMPILER_TYPE: intel
-    COMPILER_VERSION: 2025.1
+    OS: rocky8
+    COMPILER_TYPE: spack
+    COMPILER_VERSION: 202402
   <<: *buildScript
 
-build-ubuntu-intelrte:
+build-rocky8-gcc13.3-spack202501:
   stage: build
   variables:
-    DOCKERFILE: Dockerfile-base-ubuntu24.04-intel2025.1rte
+    DOCKERFILE: Dockerfile-rocky8-spack202501
     APP: "base"
-    OS: ubuntu24.04
-    COMPILER_TYPE: intel
-    COMPILER_VERSION: 2025.1rte
+    OS: rocky8
+    COMPILER_TYPE: spack
+    COMPILER_VERSION: 202501
   <<: *buildScript
-
