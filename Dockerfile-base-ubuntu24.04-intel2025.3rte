@@ -101,5 +101,5 @@ COPY --from=builder /opt/spack/opt/spack /opt/spack/opt/spack
 # Setup environment
 ENV LD_LIBRARY_PATH=/opt/intel/oneapi/redist/lib:/opt/spack-environment/.spack-env/view/lib
 ENV LIBRARY_PATH=/opt/intel/oneapi/redist/lib:/opt/spack-environment/.spack-env/view/lib
-ENV PATH=/opt/spack-environment/.spack-env/view/bin
+ENV PATH=/opt/spack-environment/.spack-env/view/bin:$PATH
 ENTRYPOINT [ "/bin/bash" ]
