@@ -27,6 +27,7 @@ spack:
     - mpich
     - bacio
     - cmake
+    - g2c
     - g2
     - g2tmpl
     - hdf5 ^mpich
